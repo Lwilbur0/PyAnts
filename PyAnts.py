@@ -1,11 +1,6 @@
 import pygame
 import random
 import math
-# from tkinter import *
-# from tkinter import messagebox
-#number counter to change how many ants are on screen
-#get rid of fill to create snake simulator
-#hover hand when hovering over text toggles
 size = 5
 speed = 1
 
@@ -23,7 +18,7 @@ class Ant:
         if random.random() < 0.05:
             self.direction = random.randint(0, 360)
         # if distance away from mouse is within 50, then reverse the angle to run away from the mouse
-        if distance < 100:
+        if distance < 50:
             angle = math.atan2(dy, dx)
             angle += math.pi
             # either directs ants to mouse or opposite of mouse
@@ -57,15 +52,18 @@ def main():
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Ant Colony Simulator")
     clock = pygame.time.Clock()
-    pygame.draw.rect(screen, (120, 200, 200), (0, 0, 200, 100))  # (x, y, width, height)
 
+    # Create plus and minus button rectangles
+    plus_button_rect = pygame.Rect(75, 90, 30, 30)
+    minus_button_rect = pygame.Rect(30, 90, 30, 30)
     ants = []
-    for x in range(50):
+    for x in range(150):
         ant = Ant(random.randint(0, 600), random.randint(0, 800))
         ants.append(ant)
 
     running = True
     snake = False
+    antCounter = 50
     while running:
         mouse_pos = pygame.mouse.get_pos()
         # proper closing (from the internet)
@@ -78,9 +76,12 @@ def main():
                     for ant in ants:
                         ant.toggle_run_away()
                 if toggle_button_snake.collidepoint(event.pos):
-                    snake = not snake
-                if toggle_button_counter.collidepoint(event.pos):
-                    snake = not snake
+                    snake = not snake      
+                if plus_button_rect.collidepoint(event.pos):
+                    if (antCounter < 150):
+                        antCounter += 1
+                if minus_button_rect.collidepoint(event.pos):
+                    antCounter -= 1
         
         if not snake:
             #draws over previous ants
@@ -98,19 +99,34 @@ def main():
         else:
             color2 = (0, 0, 0)
 
+        # Draw plus button
+        pygame.draw.rect(screen, (200, 200, 200), plus_button_rect)
+        plus_button_center = plus_button_rect.center
+        plus_button_half_length = 7
+        pygame.draw.line(screen, (0, 0, 0), (plus_button_center[0] - plus_button_half_length, plus_button_center[1]), (plus_button_center[0] + plus_button_half_length, plus_button_center[1]), 3)
+        pygame.draw.line(screen, (0, 0, 0), (plus_button_center[0], plus_button_center[1] - plus_button_half_length), (plus_button_center[0], plus_button_center[1] + plus_button_half_length), 3)
+        
+        # Draw minus button
+        pygame.draw.rect(screen, (200, 200, 200), minus_button_rect)
+        minus_button_center = minus_button_rect.center
+        minus_button_half_length = 7
+        pygame.draw.line(screen, (0, 0, 0), (minus_button_center[0] - minus_button_half_length, minus_button_center[1]), (minus_button_center[0] + minus_button_half_length, minus_button_center[1]), 3)
+
+        # Render run, snake, and counter buttons
         toggle_button_surface = toggle_button_font.render("Run", True, color)
         toggle_button_run_center = toggle_button_surface.get_rect(center=toggle_button_run.center)
         screen.blit(toggle_button_surface, toggle_button_run_center)
         toggle_button_surface2 = toggle_button_font.render("Snake", True, color2)
         toggle_button_snake_center = toggle_button_surface2.get_rect(center=toggle_button_snake.center)
         screen.blit(toggle_button_surface2, toggle_button_snake_center)
-        toggle_button_surface3 = toggle_button_font.render("ant", True, (0, 0, 0))
+        toggle_button_surface3 = toggle_button_font.render(str(antCounter), True, (0, 0, 0))
         toggle_button_counter_center = toggle_button_surface3.get_rect(center=toggle_button_counter.center)
         screen.blit(toggle_button_surface3, toggle_button_counter_center)
-
-        for ant in ants:
-            ant.update(mouse_pos)
-            ant.draw(screen)
+        
+        # draw new ant based on updated x and y info
+        for x in range(antCounter):
+            ants[x].update(mouse_pos)
+            ants[x].draw(screen)
 
         # makes changes visible to screen
         pygame.display.flip()

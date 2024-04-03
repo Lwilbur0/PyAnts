@@ -2,11 +2,11 @@
 ant colony simulation
 
 # About
-FILL THIS IN
-Answer these questions: What is your project? Why'd you build it?
+This is a python ant colony that simulates random ant movement that follows or runs from the user’s mouse. I built it to create the most satisfying environment possible.
+
 # Goal and requirements
-FILL THIS IN
-Summarize your goals, non-goals, and project requirements from your design doc. Make sure to link your design doc here as well.
+My goals were to create a collection of entities that travel around the screen and that the user can mess with. The "ants" should move randomly, and react to the user's mouse. I did not aim to make a realistic depiction of an ant colony. The project required understanding of python, pygame, and how to update the movement of the ants.
+
 # Sprint Goal
 1. Research traveling salesman problem
 2. Understand fundamentals of pygame physics engine
@@ -15,10 +15,11 @@ Summarize your goals, non-goals, and project requirements from your design doc. 
 5. Simulate path of ant colony as they search for blank item
 
 # Key learnings
-FILL THIS IN
-So... what did you learn? (start this, but **come back to it at the end of the sprint**)
-# Running your project
-FILL THIS IN
-How would I, or anyone who comes across this project, run this project? Make sure to include all the steps.
-# Misc.
-Feel free to add anything else you want here :)
+I learned how to use pygame to draw objects and initialize a python display. I learned how to create a working button without the use of tkinter. I learned how to use the horizontal and vertical components of velocity to calculate the change in the x and y values of each ant for each frame.
+
+# Running the project
+1. Download PyAnts.py file
+2. Install pygame using:
+   pip install pygame
+3. Run the project:
+   python3 PyAnts.py

@@ -34,7 +34,7 @@ class Ant:
             self.y += speed * math.sin(math.radians(self.direction))
 
     def draw(self, screen):
-        pygame.draw.circle(screen, (0, 0, 0), (int(self.x), int(self.y)), size)
+        pygame.draw.circle(screen, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)), (int(self.x), int(self.y)), size)
     
     def toggle_run_away(self):
         self.run_away = not self.run_away
@@ -50,7 +50,7 @@ toggle_button_font = pygame.font.Font(None, 24)
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Ant Colony Simulator")
+    pygame.display.set_caption("Gay Ant Colony Simulator")
     clock = pygame.time.Clock()
 
     # Create plus and minus button rectangles

@@ -1,5 +1,5 @@
 # PyAnts
-ant colony simulation
+gay ant colony simulation
 
 # About
 This is a python ant colony that simulates random ant movement that follows or runs from the user’s mouse. I built it to create the most satisfying environment possible.
